@@ -54,87 +54,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" rel="stylesheet" />
     <style>
-        body {
-            background: linear-gradient(to right, #2A7B9B, #57C785, #8B53ED);
-            font-family: 'Arial', sans-serif;
-        }
-
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-            margin-top: 100px;
-        }
-
-        h2 {
-            color: pink;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: greenyellow;
-        }
-
-        .btn-primary {
-            width: 100%;
-            background-color: #00bcd4;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #0097a7;
-        }
-
-        .btn-link {
-            text-decoration: none;
-            font-size: 14px;
-            color: #6c757d;
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .btn-link:hover {
-            color: #333;
-        }
-
-        .alert {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .input-group-text {
-            background-color: #f1f1f1;
-            border-radius: 8px 0 0 8px;
-        }
-
-        input.form-control {
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+    body {
+    background: #f0f2f5;
+    background: linear-gradient(135deg, #a8c0ff, #3f51b5);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    }
+    .container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 450px;
+    width: 100%;
+    }
+    h2 {
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    }
+    .form-label {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 5px;
+    }
+    .form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    box-shadow: none;
+    transition: border-color 0.3s;
+    }
+    .form-control:focus {
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+    }
+    .btn-primary {
+    width: 100%;
+    background-color: #3f51b5;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .btn-primary:hover {
+    background-color: #303f9f;
+    transform: translateY(-2px);
+    }
+    .btn-link {
+    text-decoration: none;
+    font-size: 14px;
+    color: #6c757d;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+    }
+    .btn-link:hover {
+    color: #333;
+    }
+    .alert {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    }
+    .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+    }
+    .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+    }
+</style>
 </head>
 
 <body>

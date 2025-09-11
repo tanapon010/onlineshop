@@ -46,8 +46,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to right, #2A7B9B, #57C785, #8B53ED);
+            background: #f0f2f5;
+            background: linear-gradient(135deg, #a8c0ff, #3f51b5);
             font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
         .container {
@@ -61,7 +67,6 @@
         }
 
         h2 {
-            color: pink;
             font-weight: 600;
             text-align: center;
             margin-bottom: 30px;
@@ -69,7 +74,6 @@
 
         .form-label {
             font-weight: 500;
-            color: greenyellow;
         }
 
         .btn-primary {
@@ -128,7 +132,8 @@
     </style>
 </head>
 
-<body class="container mt-5">
+<body class="mt-5">
+    <div class="container">
     <h2>เข้าสู่ระบบ</h2>
 
     <?php if (isset($_GET['register']) && $_GET['register'] === 'success'): ?>
@@ -154,6 +159,6 @@
             <a href="register.php" class="btn btn-link">สมัครสมาชิก</a>
         </div>
     </form>
-
+    </div>
 </body>
 </html>
