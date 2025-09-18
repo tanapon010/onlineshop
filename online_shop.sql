@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2025 at 08:01 AM
+-- Generation Time: Sep 18, 2025 at 07:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,14 @@ CREATE TABLE `cart` (
   `quantity` int(11) NOT NULL,
   `added_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `product_id`, `quantity`, `added_at`) VALUES
+(1, 2, 2, 1, '2025-08-14 02:32:49'),
+(2, 3, 1, 2, '2025-08-14 02:32:49');
 
 -- --------------------------------------------------------
 
@@ -74,7 +82,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `user_id`, `total_amount`, `order_date`, `status`) VALUES
-(1, NULL, 834.00, '2025-09-11 02:13:37', 'processing');
+(1, 2, 834.00, '2025-08-14 02:32:49', 'processing');
 
 -- --------------------------------------------------------
 
@@ -112,17 +120,19 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `stock` int(11) DEFAULT 0,
   `category_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `product_name`, `description`, `price`, `stock`, `category_id`, `created_at`) VALUES
-(1, 'หูฟังไร้สาย', 'หูฟัง Bluetooth คุณภาพเสียงดี', 599.00, 50, 1, '2025-09-11 02:13:37'),
-(2, 'สมุดโน้ต', 'สมุดโน้ตขนาด A5', 35.00, 100, 2, '2025-09-11 02:13:37'),
-(3, 'เสื้อยืดคอกลม', 'เสื้อยืดสีขาวคอกลม', 199.00, 80, 3, '2025-09-11 02:13:37');
+INSERT INTO `products` (`product_id`, `product_name`, `description`, `price`, `stock`, `category_id`, `created_at`, `image`) VALUES
+(1, 'หูฟังไร้สาย', 'หูฟัง Bluetooth คุณภาพเสียงดี', 599.00, 50, 1, '2025-08-14 02:32:49', NULL),
+(2, 'สมุดโน้ต', 'สมุดโน้ตขนาด A5', 35.00, 100, 2, '2025-08-14 02:32:49', NULL),
+(3, 'เสื้อยืดคอกลม', 'เสื้อยืดสีขาวคอกลม', 199.00, 80, 3, '2025-08-14 02:32:49', NULL),
+(5, 'Torch', 'เปิดไฟได้', 100.00, 60, 1, '2025-09-18 03:56:55', 'product_1758170172.jpg');
 
 -- --------------------------------------------------------
 
@@ -168,9 +178,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `full_name`, `role`, `created_at`) VALUES
-(1, 'admin1', 'admin_pass', 'admin1@example.com', 'Admin One', 'admin', '2025-09-11 02:13:37'),
-(4, 's', '$2y$10$QGDnZoNjCWWDMD8rVHQHfOwoSzOgrbSiTM/./08aF.htb.2VmO73m', 'user@mail.com', 'ssss', 'admin', '2025-09-11 02:14:21'),
-(5, 'sh', '$2y$10$ra1abL9cUiH0iRu.RNs0iug1ofCtLftf6uAXzTrSoeW8zf3An/AHO', 'gg@mail.com', 's15', 'member', '2025-09-11 03:25:08');
+(1, 'admin1', 'admin_pass', 'admin1@example.com', 'Admin One', 'admin', '2025-08-14 02:32:49'),
+(2, 'member1', 'member_pass', 'member1@example.com', 'John Doe', 'member', '2025-08-14 02:32:49'),
+(3, 'member2', 'member_pass', 'member2@example.com', 'Jane Smith', 'member', '2025-08-14 02:32:49'),
+(8, 's', '$2y$10$ZDoqjFaFOAys/jkul13oBeh.LLkiOZVER7NKb.MMWNH/9kVEN7Vvm', '664230010@webmail.npru.ac.th', 'w', 'admin', '2025-08-14 03:45:08'),
+(9, 'shiryu', '$2y$10$zJu3wN7BzSuOile2KAXum.qcm50z2sUYmjmB8FO.bbJP3tcbJGGbi', 'shiryu2548@gmail.com', 's', 'admin', '2025-08-14 04:39:03'),
+(10, 'shiryu150', '$2y$10$dRp2OgdUKuGFBQWoXaLAtOWVSFJKSQyTTtAYUVX/59bm8NG..0qGq', 'shiryu254@gmail.com', 's', 'member', '2025-08-14 04:41:38'),
+(11, 'cc', '$2y$10$jeB5Pk7FeLO0WM5wipRrl.ks5l0Ggr8QFRQJ7LGwda0Ihqm9MdPb2', 's1@gmail.com', 'cctv', 'member', '2025-08-14 05:18:36'),
+(15, 'ss', '$2y$10$fFjYCzfzCT64y8Be9OBuhOJ8QvzrZs.WTybtxsH6ujx7eA8wmNGgq', 'user@mail.com', 'sss', 'admin', '2025-09-18 02:49:58'),
+(16, 's150', '$2y$10$cNFMnSnYcOG3NTa1WaX7u.uSUS9NtRPg54OBWSgP2F41YHsEHyZTK', 'shiryu2548@hotmail.com', 's115500', 'member', '2025-09-18 05:22:01');
 
 --
 -- Indexes for dumped tables
@@ -241,7 +257,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -259,7 +275,7 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `shipping`
@@ -271,7 +287,7 @@ ALTER TABLE `shipping`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
