@@ -33,6 +33,7 @@ $img = !empty($product['image']) ? 'product_images/' . rawurlencode($product['im
     <title>รายละเอียดสินค้า - <?= htmlspecialchars($product['product_name']) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
     <style>
         .product-img {
             width: 100%;
@@ -76,7 +77,7 @@ $img = !empty($product['image']) ? 'product_images/' . rawurlencode($product['im
                     <p><strong>คงเหลือ:</strong> <?= (int)$product['stock'] ?> ชิ้น</p>
 
                     <?php if ($isLoggedIn): ?>
-                        <form action="cart.php" method="post" class="mt-3">
+                        <form action="cart.php" method="post" class="mt-3" id="add-to-cart-form">
                             <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                             <label for="quantity" class="form-label">จำนวนที่ต้องการสั่งซื้อ:</label>
                             <div class="input-group mb-3" style="max-width: 200px;">
@@ -95,6 +96,25 @@ $img = !empty($product['image']) ? 'product_images/' . rawurlencode($product['im
             </div>
         </div>
     </div>
+
+    <script>
+        // เช็คเมื่อมีการส่งฟอร์ม
+        document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const stock = parseInt('<?= $product['stock'] ?>');
+
+            // ถ้าจำนวนที่เลือกมากกว่าคงเหลือ
+            if (quantity > stock) {
+                event.preventDefault(); // ป้องกันการส่งฟอร์ม
+                Swal.fire({
+                    icon: 'error',
+                    title: 'จำนวนเกินกว่าที่มีในสต็อก',
+                    text: 'คุณไม่สามารถสั่งซื้อสินค้ามากกว่าจำนวนที่มีในสต็อก',
+                    confirmButtonText: 'ตกลง'
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>

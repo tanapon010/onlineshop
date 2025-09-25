@@ -2,6 +2,7 @@
 session_start();
 require_once 'config.php';
 
+// ดึงข้อมูลสินค้า
 $stmt = $conn->query("SELECT p.*, c.category_name
             FROM products p
             LEFT JOIN categories c ON p.category_id = c.category_id
@@ -9,6 +10,39 @@ $stmt = $conn->query("SELECT p.*, c.category_name
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $isLoggedIn = isset($_SESSION['user_id']);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
+    // ตรวจสอบว่ามีตะกร้าหรือยัง
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    // เพิ่มสินค้าลงในตะกร้า
+    $productId = (int)$_POST['product_id'];
+    $quantity = (int)$_POST['quantity'];
+
+    // ตรวจสอบว่าสินค้ามีอยู่ในตะกร้าแล้วหรือไม่
+    $found = false;
+    foreach ($_SESSION['cart'] as &$cartItem) {
+        if ($cartItem['product_id'] == $productId) {
+            $cartItem['quantity'] += $quantity;
+            $found = true;
+            break;
+        }
+    }
+
+    // ถ้าไม่มีสินค้าในตะกร้า, เพิ่มเข้าไปใหม่
+    if (!$found) {
+        $_SESSION['cart'][] = [
+            'product_id' => $productId,
+            'quantity' => $quantity
+        ];
+    }
+
+    // เปลี่ยนเส้นทางไปยังหน้า cart.php
+    header('Location: cart.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +53,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <title>หน้าแรก | Attack Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             background-color: #f8f9fa;
@@ -78,8 +113,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <h1 class="fw-bold text-primary">⚔️ Attack Shop</h1>
         <div>
             <?php if ($isLoggedIn): ?>
-                <span class="me-3">ยินดีต้อนรับ, <?= htmlspecialchars($_SESSION['username']) ?> (<?= $_SESSION['role'] ?>)</span>
+                <span class="me-3">ยินดีต้อนรับ, <?= htmlspecialchars($_SESSION['full_name']) ?> (<?= $_SESSION['role'] ?>)</span>
                 <a href="profile.php" class="btn btn-outline-info">ข้อมูลส่วนตัว</a>
+                <a href="orders.php" class="btn btn-outline-warning">ดูประวัติการสั่งซื้อ</a>
                 <a href="cart.php" class="btn btn-outline-warning">ดูตะกร้า</a>
                 <a href="logout.php" class="btn btn-outline-secondary">ออกจากระบบ</a>
             <?php else: ?>
@@ -149,6 +185,5 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </div>
         <?php endforeach; ?>
     </div>
-
 </body>
 </html>
